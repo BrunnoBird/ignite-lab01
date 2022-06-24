@@ -2,14 +2,7 @@ import { gql, useMutation } from "@apollo/client";
 import { useState, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { Logo } from "../components/Logo";
-
-const CREATE_SUBSCRIBER_MUTATION = gql`
-mutation CreateSubscribe ($name: String!, $email: String!) {
-    createSubscriber(data: {name: $name, email: $email}) {
-      id
-    }
-  }
-`
+import { useCreateSubscribeMutation } from "../graphql/generated";
 
 export function Subscribe() {
   //Usado para quando quero navegar o usuario sem que ele clique em algum link, ancora etc...
@@ -18,7 +11,7 @@ export function Subscribe() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
 
-  const [createSubscriber, { loading }] = useMutation(CREATE_SUBSCRIBER_MUTATION);
+  const [createSubscriber, { loading }] = useCreateSubscribeMutation();
 
   async function handleSubscribe(event: FormEvent) {
     //Previnindo o comportamento default de redirect do form
